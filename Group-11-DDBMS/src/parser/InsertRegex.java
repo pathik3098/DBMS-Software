@@ -1,4 +1,4 @@
-package com.group11;
+package parser;
 
 import java.util.regex.*;
 
