@@ -9,6 +9,8 @@ public class consoleRunner {
 	
 	String name;
     String pwd;
+    public final static String QueryRequest ="query> ";
+	public final static String QueryExit ="EXIT";
 	
 	// Method to run via Console
 	public void run() {
@@ -49,7 +51,7 @@ public class consoleRunner {
 		    	pwd = user[1];
 		    	if(adminUsername.equals(name) && adminPassword.equals(pwd)) {
 					System.out.println("Login was successful.");
-					
+					initializeSystem();
 				   }
 		    	else {
 		    		System.out.println("Incorrect Login");
@@ -71,6 +73,20 @@ public class consoleRunner {
 			}
 	}while(!commandEntered.equalsIgnoreCase(quitCommand));
 	userInput.close();
+	}
+
+	public void initializeSystem() {
+
+		System.out.println(QueryRequest);
+		String query = "";
+		do {
+			Scanner scanner = new Scanner(System.in);
+			query =scanner.nextLine();
+			if (query.equalsIgnoreCase(QueryExit)) {
+				return;
+			}
+		}while (!query.equalsIgnoreCase(QueryExit));
+
 	}
 
 }
