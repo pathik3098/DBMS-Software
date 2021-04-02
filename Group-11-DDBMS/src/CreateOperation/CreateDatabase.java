@@ -27,7 +27,6 @@ public class CreateDatabase {
         else{
             System.out.println("Error in creating database");
         }
-
     }
 
 
