@@ -5,17 +5,17 @@ import java.io.File;
 public class CreateDatabase {
     String databaseName;
     String path = "D:\\Database";
-
+    String query;
     String[] statement;
 
-    public CreateDatabase(String[] s){
-        statement = s;
-        databaseName = statement[2];
-        path = path+"\\"+ databaseName;
-        System.out.println(path);
+    public CreateDatabase(String query){
+        this.query = query;
     }
 
-    public void createDatabase(){
+    public void execute(){
+        statement = query.split(" ");
+        databaseName = statement[2];
+        path = path+"\\"+ databaseName;
         File file = new File(path);
         boolean bool = file.mkdir();
 
@@ -28,6 +28,4 @@ public class CreateDatabase {
             System.out.println("Error in creating database");
         }
     }
-
-
 }

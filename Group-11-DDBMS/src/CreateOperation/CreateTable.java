@@ -3,59 +3,59 @@ package CreateOperation;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static CreateOperation.Use.currentDB;
 
 public class CreateTable {
-    String [] createsql = new String[100];
-    String path = "D:\\Database";
+    String query;
+    ArrayList<String> queryTokens = new ArrayList<String>();
+    String path = currentDB;
     String tablemetapath,tablepath;
     boolean result;
 
-    public CreateTable()
+    public CreateTable(String query)
     {
-        createsql[0] = "TestDatabase";
-        createsql[1] = "create";
-        createsql[2] = "table";
-        createsql[3] = "tablename";
-        createsql[4] = "column1";
-        createsql[5] = "int";
-        createsql[6] = "column2";
-        createsql[7] = "String";
-        tablemetapath = path+"\\"+createsql[0]+"\\"+createsql[3]+"meta"+".txt";
-        tablepath = path+"\\"+createsql[0]+"\\"+createsql[3]+".txt";
+        this.query = query;
+        tokenize();
+        tablemetapath = path+"\\"+queryTokens.get(2)+"meta"+".txt";
+        tablepath = path+"\\"+ queryTokens.get(2)+".txt";
     }
 
-    public void createtable()
+    private void tokenize()
     {
-        File file = new File(tablemetapath);
-        try
-        {
-            result = file.createNewFile();
-            if(result)
-            {
-                System.out.println("table succesfully created");
-            }
-            else
-            {
-                System.out.println("table already exist");
-            }
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        String[] getPartBeforeRoundBracket=query.split("\\((.*?)\\);");
+        String[]  getTableName= getPartBeforeRoundBracket[0].split(" ");
+        queryTokens.addAll(Arrays.asList(getTableName));
 
+        String[] getPartInsideRoundBracket = query.split("\\(");
+        String intermediateResult = getPartInsideRoundBracket[1];
+        String[] removeLastCurlyBracket = intermediateResult.split("\\)");
+        String[] getColumnTokens = removeLastCurlyBracket[0].split(",");
+
+        for(String j : getColumnTokens)
+        {
+            String[] abc = j.split(" ");
+            queryTokens.addAll(Arrays.asList(abc));
+        }
+    }
+
+    public void execute()
+    {
+        createFile(tablemetapath);
 
         try
         {
             if(result)
             {
                 FileWriter myWriter = new FileWriter(tablemetapath);
-                for(int i = 4; i< createsql.length; i=i+2)
+                for(int i = 3; i< queryTokens.size(); i=i+2)
                 {
-                    myWriter.write(createsql[i]+"-"+createsql[i+1]+"\n");
+                    myWriter.write(queryTokens.get(i)+"-"+queryTokens.get(i+1)+"\n");
                 }
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                //System.out.println("Successfully wrote to the file.");
             }
         }
         catch (IOException e)
@@ -64,10 +64,14 @@ public class CreateTable {
             e.printStackTrace();
         }
 
-        File file1 = new File(tablepath);
+        createFile(tablepath);
+    }
+
+    private void createFile(String filePath) {
+        File file = new File(filePath);
         try
         {
-            result = file1.createNewFile();
+            result = file.createNewFile();
             if(result)
             {
                 System.out.println("table succesfully created");
