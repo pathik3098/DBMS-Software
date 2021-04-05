@@ -16,22 +16,22 @@ import SelectOperation.Object;
 
 public class DeleteQuery {
 
-    private String database;
+    private String database = "src/Database";
     public boolean executeQuery(String tableName, String conditionColumnName, String conditionColumnValue) {
 
         if (checkTableName(database,tableName)) {
             Map<String, Object> metaData = fetchMetaData(database,tableName);
             if (conditionColumnName != null) {
                 File file = new File(tableName+".txt");
-                Path filePath = Paths.get(tableName+".txt");
+                Path filePath = Paths.get(database + tableName +".txt");
                 Charset charset = StandardCharsets.UTF_8;
                 try {
                     List<String[]> recordsAfterDelete = new ArrayList<>();
-                    int whereColumnPosition = metaData.get(conditionColumnName).getIndex();
+                    int ColumnPosition = metaData.get(conditionColumnName).getIndex();
                     List<String> records = Files.readAllLines(filePath,charset);
                     for (String record : records) {
                         String[] eachRow = record.split("-");
-                        if (eachRow[whereColumnPosition] != conditionColumnValue) {
+                        if (eachRow[ColumnPosition] != conditionColumnValue) {
                             recordsAfterDelete.add(eachRow);
                         }
                     }
@@ -82,9 +82,9 @@ public class DeleteQuery {
 
     public Map<String, Object> fetchMetaData(String database, String tableName){
         //File file = new File(tableName + "meta.txt");
-        Path filePath = Paths.get(tableName+"meta.txt");
+        Path filePath = Paths.get(database + tableName+"meta.txt");
         Charset charset = StandardCharsets.UTF_8;
-        Map<String, Object> metaData = new HashMap<String,Object>();
+        Map<String, Object> metaData = new HashMap<>();
         try {
             List<String> dataValues = Files.readAllLines(filePath,charset);
             for (String data : dataValues) {
