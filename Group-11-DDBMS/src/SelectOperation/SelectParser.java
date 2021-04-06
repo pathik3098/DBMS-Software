@@ -1,19 +1,22 @@
 package SelectOperation;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SelectParser {
 
     String query;
-    String database;
-    SelectQuery select = new SelectQuery();
-    private String Directory;
 
     public SelectParser(String query) {
+
         this.query = query;
     }
 
-    public List<String> parseQuery(String query) {
+
+    public List<String> parseQuery(String query) throws IOException {
+        validateQuery(query);
         SelectQuery select = new SelectQuery();
         String tableName = fetchTableName(query);
         String[] requiredColumns = getColumnNames(query);
@@ -21,6 +24,21 @@ public class SelectParser {
         String conditionColumnValue = getWhereColumnValue(query);
         List<String> executedResults = select.executeQuery(tableName,requiredColumns,conditionColumnName,conditionColumnValue);
         return executedResults;
+    }
+
+    public boolean validateQuery(String query) {
+
+        //https://stackoverflow.com/questions/1506699/regular-expression-to-match-select-from-where-sql-queries
+        String regex = "SELECT\\s+?[^\\s]+?\\s+?FROM\\s+?[^\\s]+?\\s+?WHERE.*";
+        Pattern pattern = Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
+        Matcher match = pattern.matcher(query);
+        boolean valid = match.find();
+        if(valid) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public String fetchTableName(String query) {
@@ -35,7 +53,7 @@ public class SelectParser {
     }
 
     private String[] getColumnNames(String query) {
-        String[] columns = null;
+        String[] columns = {};
         if (query.contains("*")) {
             return columns;
         }
