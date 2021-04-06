@@ -1,12 +1,21 @@
 package consoleDriver;
 
+import CreateOperation.CreateDatabase;
+import CreateOperation.CreateTable;
+import CreateOperation.Use;
 import DeleteOperation.DeleteParser;
 import Login.UserLogin;
 import SelectOperation.SelectParser;
+import parser.CreateDatabaseRegex;
+import parser.CreateTableRegex;
+import parser.UseRegex;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
+
+import static CreateOperation.Use.currentDB;
 
 public class consoleRunner {
 
@@ -57,9 +66,43 @@ public class consoleRunner {
 				String queryOperation = splitQuery[0];
 				switch (queryOperation.toLowerCase().trim()) {
 					case "use":
-						//call to use operation
+						UseRegex useRe = new UseRegex();
+						boolean valid = useRe.checkUseQuery(query);
+						if (valid) {
+							Use useDB = new Use(query);
+							useDB.execute();
+						} else {
+							System.out.println("Invalid Query, PLease try again ");
+						}
+						break;
 					case "create":
-						//call to create operation
+						if(splitQuery[1].toLowerCase().trim().equals("database"))
+						{
+							CreateDatabaseRegex DBregex = new CreateDatabaseRegex();
+							boolean validQuery = DBregex.checkDBQuery(query);
+							if(validQuery)
+							{
+								CreateDatabase createDB= new CreateDatabase(query);
+								createDB.execute();
+							}
+							else
+							{
+								System.out.println("Invalid Query, PLease try again ");
+							}
+						}
+
+						else if(splitQuery[1].toLowerCase(Locale.ROOT).trim().equals("table"))
+						{
+							CreateTableRegex tableRegex = new CreateTableRegex();
+							boolean validQuery = tableRegex.checkTableRegex(query);
+							if (validQuery) {
+								CreateTable create = new CreateTable(query);
+								create.execute();
+							} else {
+								System.out.println("Invalid Query, PLease try again ");
+							}
+						}
+						break;
 					case "insert":
 						//call to insert
 					case "select":
