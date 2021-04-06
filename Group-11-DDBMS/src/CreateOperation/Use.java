@@ -14,9 +14,9 @@ public class Use {
 
     public void execute()
     {
-        String path = "D:\\Database";
+        String path = "src/Database";
         String[] statement = useQuery.split(" ");
-        path = path + "\\" + statement[1];
+        path = path + "/" + statement[1];
         boolean isDatabasePresent = Files.isDirectory(Paths.get(path));
         if(isDatabasePresent)
         {
