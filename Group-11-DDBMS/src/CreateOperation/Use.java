@@ -11,7 +11,14 @@ public class Use {
     {
         this.useQuery = query;
     }
+    public Use() {}
+    public void setCurrentDB(String database) {
+        this.currentDB = database;
+    }
 
+    public String getCurrentDB() {
+        return currentDB;
+    }
     public void execute()
     {
         String path = "src/Database";
@@ -21,6 +28,7 @@ public class Use {
         if(isDatabasePresent)
         {
             currentDB = path;
+            setCurrentDB(currentDB);
         }
         else
         {

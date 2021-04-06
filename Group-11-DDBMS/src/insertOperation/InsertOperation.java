@@ -60,6 +60,7 @@ public class InsertOperation
 						file = new FileHandlingOperations(databaseName, tableName.toLowerCase() + ".txt");
 						if(file.isFilePresent())
 						{
+							System.out.println(getDataValues());
 							file.writeTableData(getDataValues());
 						}
 						else
@@ -102,7 +103,7 @@ public class InsertOperation
 			column = (ColumnData)columnData.get(i);
 			columnType = column.getType();
 
-			switch (columnType) 
+			switch (columnType.toUpperCase())
 			{
 			case "STRING": 
 			{
@@ -118,7 +119,7 @@ public class InsertOperation
 				}
 				break;
 			}
-			case "INTEGER": 
+			case "INT":
 			{
 				try 
 				{

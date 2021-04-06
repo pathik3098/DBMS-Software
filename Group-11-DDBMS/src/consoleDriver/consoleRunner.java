@@ -6,6 +6,7 @@ import CreateOperation.Use;
 import DeleteOperation.DeleteParser;
 import Login.UserLogin;
 import SelectOperation.SelectParser;
+import insertOperation.InsertOperation;
 import parser.CreateDatabaseRegex;
 import parser.CreateTableRegex;
 import parser.UseRegex;
@@ -105,6 +106,11 @@ public class consoleRunner {
 						break;
 					case "insert":
 						//call to insert
+						InsertOperation insert = new InsertOperation();
+						Use db = new Use();
+						String databaseName = db.getCurrentDB();
+						insert.insertQueryParser(query, databaseName);
+						break;
 					case "select":
 						SelectParser select = new SelectParser(query);
 						List<String> rowsFetched = select.parseQuery(query);

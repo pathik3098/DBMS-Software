@@ -1,6 +1,8 @@
 package SelectOperation;
 
 import CreateOperation.CreateDatabase;
+import CreateOperation.Use;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,8 +15,8 @@ public class SelectQuery {
 
     String query;
     private String Directory = "src/Database";
-    CreateDatabase create = new CreateDatabase();
-    String databaseName = "TESTDB";
+    Use database = new Use();
+    String databaseName = database.getCurrentDB();
 
     public List<String> executeQuery(String tableName, String[] requiredColumns, String conditionColumnName, String conditionColumnValue) throws IOException {
         List<String> allRecords = new ArrayList<>();
