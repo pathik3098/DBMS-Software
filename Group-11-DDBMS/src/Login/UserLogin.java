@@ -9,10 +9,9 @@ public class UserLogin {
 
     private String userName;
     private String password;
-    String commandEntered;
     Scanner userInput = new Scanner(System.in);
 
-    public void loginUser() {
+    public boolean loginUser() {
 
         System.out.println("Please enter your credentials");
         System.out.print("Enter your username:");
@@ -21,26 +20,26 @@ public class UserLogin {
         password = userInput.next();
 
         String line = "";
-        String splitBy = ",";
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/Login/credentials.csv"));
             while ((line = br.readLine()) != null) {
                 String[] user = line.split(",");
-                userName = user[0];
-                password = user[1];
-                if(userName.equals(userName) && password.equals(password)) {
+                String userId = user[0];
+                String userPassword = user[1];
+                if(userName.equals(userId) && password.equals(userPassword)) {
                     System.out.println("Login successful.");
+                    return true;
                 }
                 else {
-                    System.out.println("Incorrect Login");
+                    continue;
                 }
-                break;
             }
             br.close();
         }
         catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 }
