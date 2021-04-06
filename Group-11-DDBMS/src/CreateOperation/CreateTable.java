@@ -55,7 +55,6 @@ public class CreateTable {
                     myWriter.write(queryTokens.get(i)+"-"+queryTokens.get(i+1)+"\n");
                 }
                 myWriter.close();
-                //System.out.println("Successfully wrote to the file.");
             }
         }
         catch (IOException e)
