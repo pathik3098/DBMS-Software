@@ -1,5 +1,8 @@
 package SelectOperation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -8,6 +11,7 @@ import java.util.regex.Pattern;
 public class SelectParser {
 
     String query;
+    //private static Logger log = LogManager.getLogger(SelectParser.class);
 
     public SelectParser(String query) {
 

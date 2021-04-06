@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import CreateOperation.Use;
 import SelectOperation.Object;
 
 public class DeleteQuery {
 
     private String Directory = "src/Database";
-    String database = "TESTDB";
+    Use db = new Use();
+    String database = db.getCurrentDB();
     public boolean executeQuery(String tableName, String conditionColumnName, String conditionColumnValue) throws IOException {
 
         Path filePath = Paths.get(Directory + "/" +database+"/" +tableName+".txt");
