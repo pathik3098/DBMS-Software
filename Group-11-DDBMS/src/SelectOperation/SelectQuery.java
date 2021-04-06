@@ -1,6 +1,6 @@
 package SelectOperation;
 
-import java.io.File;
+import CreateOperation.CreateDatabase;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,23 +12,30 @@ import java.util.Map;
 public class SelectQuery {
 
     String query;
-    String database;//handle this
+    private String Directory = "src/Database";
+    CreateDatabase create = new CreateDatabase();
+    String databaseName = "TESTDB";
 
-    public List<String> executeQuery(String tableName, String[] requiredColumns, String conditionColumnName, String conditionColumnValue) {
+    public List<String> executeQuery(String tableName, String[] requiredColumns, String conditionColumnName, String conditionColumnValue) throws IOException {
         List<String> allRecords = new ArrayList<>();
         List<String> requiredRecords = new ArrayList<>();
         List<String> requiredColumnRecords = new ArrayList<>();
-        String Directory = "dbms\\";
-        if (checkTableName(database,tableName)) {
+        if (checkTableName(databaseName,tableName)) {
             String[] eachRow;
-            Map<String, Object> metaData = getTableMetaData(database,tableName);
+            Map<String, Object> metaData = getTableMetaData(databaseName,tableName);
             String[] columns = requiredColumns;
-            boolean isColumnsAvailable = columnsAvailable(columns, metaData);
-            if (isColumnsAvailable) {
+            //boolean isColumnsAvailable = columnsAvailable(columns, metaData);
+            if (columns.length == 0) {
+                allRecords = Files.readAllLines(Paths.get(Directory + "/" + databaseName + "/" + tableName + ".txt"));
+                for (String record : allRecords) {
+                    System.out.println(record);
+                }
+            }
+            else {
                 if (conditionColumnName != null) {
                     try {
-                        File file = new File(database,tableName + ".txt");
-                        allRecords = Files.readAllLines(Paths.get(Directory + database + "\\" + file));
+                        //File file = new File(databaseName,tableName + ".txt");
+                        allRecords = Files.readAllLines(Paths.get(Directory + "/" + databaseName + "/" + tableName+".txt"));
                         for (String record : allRecords) {
                             eachRow = record.split("-");
                             for (int i = 0; i < eachRow.length;i++) {
@@ -68,9 +75,13 @@ public class SelectQuery {
                     return requiredColumnRecords;
                 }
             }
-            else {
-                System.out.println("Invalid selection");
-            }
+//            else {
+//                allRecords = Files.readAllLines(Paths.get(Directory + "/" + databaseName + "/" + tableName+".txt"));
+//                for (String record : allRecords) {
+//                    System.out.println(record);
+//                }
+//                //System.out.println("Invalid selection");
+//            }
         }
         else {
             System.out.println("Table doesn't exist");
@@ -78,20 +89,16 @@ public class SelectQuery {
         return requiredRecords;
     }
 
-    public boolean checkTableName(String database, String tableName) {
-        File file = new File(database,tableName + ".txt");
-        return file.exists();
-        //return file.exists(Paths.get(Directory + database + "\\" + tableName));
-        //return exists;
-        //return true;
+    public boolean checkTableName(String databaseName, String tableName) {
+        return Files.exists(Paths.get(Directory+ "/" + databaseName + "/" + tableName+".txt"));
     }
 
-    public Map<String, Object> getTableMetaData(String database, String tableName) {
-        File file = new File(tableName.toLowerCase() + "meta.txt");
+    public Map<String, Object> getTableMetaData(String databaseName, String tableName) {
+        //File file = new File(tableName.toLowerCase() + "meta.txt");
         Map<String, Object> metaData = new HashMap<>();
         try {
             //correct the code here
-            List<String> columnList = Files.readAllLines(Paths.get("\\"+tableName+"meta.txt"));
+            List<String> columnList = Files.readAllLines(Paths.get(Directory+ "/" + databaseName + "/" + tableName+"meta.txt"));
             String[] columnData;
             Object obj;
             for (String line : columnList) {
