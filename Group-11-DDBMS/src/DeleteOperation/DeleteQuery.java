@@ -1,6 +1,5 @@
 package DeleteOperation;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -16,22 +15,31 @@ import SelectOperation.Object;
 
 public class DeleteQuery {
 
-    private String database = "src/Database";
-    public boolean executeQuery(String tableName, String conditionColumnName, String conditionColumnValue) {
+    private String Directory = "src/Database";
+    String database = "TESTDB";
+    public boolean executeQuery(String tableName, String conditionColumnName, String conditionColumnValue) throws IOException {
 
+        Path filePath = Paths.get(Directory + "/" +database+"/" +tableName+".txt");
+        Charset charset = StandardCharsets.UTF_8;
         if (checkTableName(database,tableName)) {
             Map<String, Object> metaData = fetchMetaData(database,tableName);
             if (conditionColumnName != null) {
-                File file = new File(tableName+".txt");
-                Path filePath = Paths.get(database + tableName +".txt");
-                Charset charset = StandardCharsets.UTF_8;
                 try {
                     List<String[]> recordsAfterDelete = new ArrayList<>();
                     int ColumnPosition = metaData.get(conditionColumnName).getIndex();
                     List<String> records = Files.readAllLines(filePath,charset);
-                    for (String record : records) {
-                        String[] eachRow = record.split("-");
-                        if (eachRow[ColumnPosition] != conditionColumnValue) {
+                    System.out.println(records);
+                    for (int i = 0; i<records.size();i++)
+                    {
+                        String[] eachRow = records.get(i).split("-");
+                        if (eachRow[ColumnPosition].equalsIgnoreCase(conditionColumnValue)) {
+
+                            System.out.println(i);
+                            System.out.println(records.get(i));
+                            //records.remove(i);
+                            //System.out.println(records.remove(i));
+                        }
+                        else {
                             recordsAfterDelete.add(eachRow);
                         }
                     }
@@ -53,7 +61,6 @@ public class DeleteQuery {
                         catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
                 catch (IOException e) {
@@ -61,6 +68,8 @@ public class DeleteQuery {
                 }
             }
             else {
+                Files.deleteIfExists(filePath);
+                Files.createFile(filePath);
                 System.out.println("Invalid command");
                 return false;
             }
@@ -73,16 +82,12 @@ public class DeleteQuery {
     }
 
     public boolean checkTableName(String database, String tableName) {
-        File file = new File(database,tableName + ".txt");
-        return file.exists();
-        //return file.exists(Paths.get(Directory + database + "\\" + tableName));
-        //return exists;
-        //return true;
+        return Files.exists(Paths.get(Directory + "/" +database+"/" +tableName+".txt"));
     }
 
     public Map<String, Object> fetchMetaData(String database, String tableName){
         //File file = new File(tableName + "meta.txt");
-        Path filePath = Paths.get(database + tableName+"meta.txt");
+        Path filePath = Paths.get(Directory + "/" +database+"/" +tableName+"meta.txt");
         Charset charset = StandardCharsets.UTF_8;
         Map<String, Object> metaData = new HashMap<>();
         try {

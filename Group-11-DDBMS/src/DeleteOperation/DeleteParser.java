@@ -1,8 +1,10 @@
 package DeleteOperation;
 
+import java.io.IOException;
+
 public class DeleteParser {
 
-    public void parseQuery(String query) {
+    public void parseQuery(String query) throws IOException {
         DeleteQuery delete = new DeleteQuery();
         String tableName = fetchTableName(query);
         String conditionColumnName = getColumnName(query);

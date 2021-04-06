@@ -1,0 +1,3 @@
+int,tablename-String)
+1-tableid-int
+2-tablename-String

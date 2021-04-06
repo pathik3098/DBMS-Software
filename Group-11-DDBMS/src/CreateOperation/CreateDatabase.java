@@ -4,7 +4,7 @@ import java.io.File;
 
 public class CreateDatabase {
     String databaseName;
-    String path = "D:\\Database";
+    String path = "src/Database";
     String query;
     String[] statement;
 
@@ -12,10 +12,21 @@ public class CreateDatabase {
         this.query = query;
     }
 
+    public CreateDatabase() {
+
+    }
+    public void setDatabaseName(String databaseName) {
+        this.databaseName = databaseName;
+    }
+    public String getDatabaseName() {
+        return databaseName;
+    }
+
     public void execute(){
         statement = query.split(" ");
         databaseName = statement[2];
-        path = path+"\\"+ databaseName;
+        setDatabaseName(statement[2]);
+        path = path+"/"+ databaseName;
         File file = new File(path);
         boolean bool = file.mkdir();
 
