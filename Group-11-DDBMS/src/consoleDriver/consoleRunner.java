@@ -4,6 +4,7 @@ import DeleteOperation.DeleteParser;
 import Login.UserLogin;
 import SelectOperation.SelectParser;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class consoleRunner {
 	public final static String QueryExit = "QUIT";
 	Scanner userInput = new Scanner(System.in);
 
-	public void run() {
+	public void run() throws IOException {
 
 		String commandEntered;
 		String quitCommand = "quit";
@@ -25,8 +26,13 @@ public class consoleRunner {
 			commandEntered = userInput.next();
 			if (commandEntered.equalsIgnoreCase("1")) {
 				UserLogin login = new UserLogin();
-				login.loginUser();
-				initializeSystem();
+				if (login.loginUser()) {
+					initializeSystem();
+				}
+				else {
+					System.out.println("Invalid Credentials");
+					return;
+				}
 			} else if (commandEntered.equalsIgnoreCase("quit")) {
 				System.out.println("Exiting the application.");
 				return;
@@ -36,14 +42,13 @@ public class consoleRunner {
 		} while (!commandEntered.equalsIgnoreCase(QueryExit));
 	}
 
-	public void initializeSystem() {
+	public void initializeSystem() throws IOException {
 
 		Scanner input = new Scanner(System.in);
-		do {
+		while (true) {
 			String[] splitQuery;
 			System.out.print("query>");
 			String query = input.nextLine();
-			System.out.println("entered query:" + query);
 			if (query.equalsIgnoreCase(QueryExit)) {
 				return;
 			}
@@ -60,21 +65,27 @@ public class consoleRunner {
 					case "select":
 						SelectParser select = new SelectParser(query);
 						List<String> rowsFetched = select.parseQuery(query);
-						if (rowsFetched.size() == 0) {
-							System.out.println("No records returned");
-						} else {
+						if (rowsFetched.size() != 0) {
 							for (String record : rowsFetched) {
 								System.out.println(record);
 							}
+							//System.out.println("No records returned");
 						}
+//						else {
+//							for (String record : rowsFetched) {
+//								System.out.println(record);
+//							}
+//						}
+						break;
 					case "delete":
 						DeleteParser delete = new DeleteParser();
 						delete.parseQuery(query);
 						System.out.println("Selected rows deleted");
+						break;
 					default:
 						return;
 				}
 			}
-		} while (!input.equals(QueryExit));
+		}
 	}
 }
