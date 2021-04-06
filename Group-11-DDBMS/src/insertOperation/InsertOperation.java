@@ -46,8 +46,8 @@ public class InsertOperation
 			file = new FileHandlingOperations(databaseName, tableName.toLowerCase() + ".txt");
 			if(file.isFilePresent())
 			{
-				file = new FileHandlingOperations(databaseName, tableName.toLowerCase() + "meta.txt");
-				if(file.isFilePresent())
+				FileHandlingOperations fileOp = new FileHandlingOperations(databaseName, tableName.toLowerCase() + "meta.txt");
+				if(fileOp.isFilePresent())
 				{
 					Map<Integer, ColumnData> columnData = getTableColumns(databaseName, tableName);
 					//System.out.println(columnData.toString());
@@ -57,7 +57,15 @@ public class InsertOperation
 					if(validateData(dataValue, columnData))
 					{
 						this.setDataValues(query.substring(indexOfOpenBracket + 1, indexOfCloseBracket).split(","));
-						file.writeTableData(getDataValues());
+						file = new FileHandlingOperations(databaseName, tableName.toLowerCase() + ".txt");
+						if(file.isFilePresent())
+						{
+							file.writeTableData(getDataValues());
+						}
+						else
+						{
+							System.out.println("File Not Found");
+						}
 					}
 					else
 					{
@@ -88,7 +96,7 @@ public class InsertOperation
 		boolean flag = true;
 		String columnType;
 		ColumnData column;
-		System.out.println(columnData);
+		//System.out.println(columnData);
 		for (int i = 0; i < dataValues.length; i++) 
 		{
 			column = (ColumnData)columnData.get(i);

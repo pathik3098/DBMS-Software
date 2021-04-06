@@ -45,6 +45,7 @@ public class FileHandlingOperations {
                 {
                     tableData += dataArray[i].trim() + separator;
                 }
+                System.out.println(tableData);
             }
             Files.writeString(Paths.get(DATABASE_DIRECTORY + dbName + "\\" + fileName), tableData,
                     StandardOpenOption.APPEND);
