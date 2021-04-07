@@ -87,9 +87,12 @@ public class ERDOperation {
     }
 
     public void saveToFile(String fileContent, String databaseName) {
-        try {
+        try
+        {
             Files.writeString(Paths.get(databaseName + "_erd.txt"), fileContent, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException ioException) {
+        }
+        catch (IOException ioException)
+        {
             ioException.printStackTrace();
         }
     }
