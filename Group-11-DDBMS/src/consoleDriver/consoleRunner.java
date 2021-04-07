@@ -115,14 +115,16 @@ public class consoleRunner {
 						SelectParser select = new SelectParser(query);
 						List<String> rowsFetched = select.parseQuery(query);
 						if (rowsFetched.size() != 0) {
+							System.out.println("inside if");
 							for (String record : rowsFetched) {
 								System.out.println(record);
 							}
-							//System.out.println("No records returned");
 						}
 						else {
+							System.out.println("inside else");
 							System.out.println("No records available");
 						}
+
 						break;
 					case "delete":
 						DeleteParser delete = new DeleteParser();

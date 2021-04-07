@@ -36,7 +36,7 @@ public class DeleteQuery {
                     for (int i = 0; i<records.size();i++)
                     {
                         String[] eachRow = records.get(i).split("-");
-                        if (eachRow[ColumnPosition-1].equalsIgnoreCase(conditionColumnValue)) {
+                        if (eachRow[ColumnPosition].equalsIgnoreCase(conditionColumnValue)) {
 
                             System.out.println(i);
                             System.out.println(records.get(i));

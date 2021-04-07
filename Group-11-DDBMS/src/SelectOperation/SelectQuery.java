@@ -29,9 +29,10 @@ public class SelectQuery {
             //boolean isColumnsAvailable = columnsAvailable(columns, metaData);
             if (columns.length == 0) {
                 allRecords = Files.readAllLines(Paths.get(databaseName + "/" + tableName + ".txt"));
-                for (String record : allRecords) {
-                    System.out.println(record);
-                }
+//                for (String record : allRecords) {
+//                    System.out.println(record);
+//                }
+                return allRecords;
             }
             else {
                 if (conditionColumnName != null) {
