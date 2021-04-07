@@ -85,6 +85,23 @@ public class FileHandlingOperations {
             e.printStackTrace();
         }
         return column;
+    }
 
+    public void writeTableMetaData(List<ColumnData> columns) {
+        try {
+            String tableMetaData = "";
+            String separator = "|";
+            for (ColumnData column : columns) {
+                tableMetaData += column.getIndex() + separator;
+                tableMetaData += column.getName() + separator;
+                tableMetaData += column.getType() + separator;
+                tableMetaData += column.getConstraint() + separator;
+                tableMetaData += column.getForeignKeyTableName() + separator;
+                tableMetaData += "\n";
+            }
+            Files.writeString(Paths.get(dbName + "\\" + fileName), tableMetaData);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 }
