@@ -6,6 +6,7 @@ import CreateOperation.Use;
 import DeleteOperation.DeleteParser;
 import Login.UserLogin;
 import SelectOperation.SelectParser;
+import erd.ERDOperation;
 import insertOperation.InsertOperation;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -148,6 +149,10 @@ public class ConsoleRunner {
 						Use dataBase = new Use();
 						String dataBaseName = dataBase.getCurrentDB();
 						truncate.executeTruncateQuery(query, dataBaseName);
+						break;
+					case "erd":
+						ERDOperation erd = new ERDOperation();
+						erd.erdQueryParser(query);
 						break;
 					default:
 						return;

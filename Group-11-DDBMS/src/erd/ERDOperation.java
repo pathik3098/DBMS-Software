@@ -21,7 +21,7 @@ public class ERDOperation {
 
     public void erdQueryParser(String query)
     {
-        if (erdQueryParser.queryChecker(query.toUpperCase()))
+        if (erdQueryParser.queryChecker(query))
         {
             String databaseName = getDbName(query);
             if(isDirectoryPresent(databaseName))
@@ -39,8 +39,8 @@ public class ERDOperation {
     }
 
     public String getDbName(String query) {
-        String[] substring = query.toUpperCase().split(" ");
-        return substring[2].trim();
+        String[] substring = query.split(" ");
+        return "src/Database/"+substring[1].trim();
     }
 
     public boolean isDirectoryPresent(String databaseName) {

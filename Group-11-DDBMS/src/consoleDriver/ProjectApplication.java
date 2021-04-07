@@ -8,5 +8,4 @@ public class ProjectApplication {
 		ConsoleRunner Runner = new ConsoleRunner();
 		Runner.run();
 	}
-
 }
