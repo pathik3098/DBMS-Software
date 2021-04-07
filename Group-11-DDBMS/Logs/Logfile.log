@@ -13,3 +13,89 @@
 2021-04-07 18:53:06 INFO  ConsoleRunner:39 - Logged in successfully
 2021-04-07 18:53:40 INFO  ConsoleRunner:83 - Executing Create Query
 2021-04-07 18:55:06 INFO  ConsoleRunner:83 - Executing Create Query
+2021-04-07 19:47:28 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 19:48:10 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 19:49:25 INFO  ConsoleRunner:83 - Executing Create Query
+2021-04-07 19:52:08 INFO  ConsoleRunner:83 - Executing Create Query
+2021-04-07 19:54:43 INFO  ConsoleRunner:83 - Executing Create Query
+2021-04-07 19:56:35 INFO  ConsoleRunner:112 - Executing Insert Query
+2021-04-07 19:57:05 INFO  ConsoleRunner:112 - Executing Insert Query
+2021-04-07 19:57:22 INFO  ConsoleRunner:112 - Executing Insert Query
+2021-04-07 19:57:34 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 19:57:34 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@66d33a
+2021-04-07 19:57:35 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 19:57:35 INFO  SelectQuery:32 - query doesn't contain WHERE clause
+2021-04-07 19:57:35 INFO  SelectQuery:33 - Fetching all table employee records
+2021-04-07 19:57:35 INFO  SelectQuery:35 - Returned all the table employee records
+2021-04-07 19:58:45 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 19:58:45 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@3f0ee7cb
+2021-04-07 19:58:45 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 19:58:45 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
+2021-04-07 19:58:45 INFO  SelectQuery:51 - Added selected records to data structure
+2021-04-07 20:03:26 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 20:03:31 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 20:03:44 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 20:03:44 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@4b6995df
+2021-04-07 20:03:44 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 20:03:44 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
+2021-04-07 20:03:44 INFO  SelectQuery:51 - Added selected records to data structure
+2021-04-07 20:08:40 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 20:08:45 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 20:08:56 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 20:08:56 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@4b6995df
+2021-04-07 20:08:56 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 20:08:56 INFO  SelectQuery:32 - query doesn't contain WHERE clause
+2021-04-07 20:08:56 INFO  SelectQuery:33 - Fetching all table employee records
+2021-04-07 20:08:56 INFO  SelectQuery:35 - Returned all the table employee records
+2021-04-07 20:10:05 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 20:10:05 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@721e0f4f
+2021-04-07 20:10:05 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 20:10:05 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
+2021-04-07 20:10:05 INFO  SelectQuery:51 - Added selected records to data structure
+2021-04-07 20:39:18 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 20:39:23 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 20:40:02 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 20:40:02 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@4b6995df
+2021-04-07 20:40:02 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 20:40:02 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
+2021-04-07 20:40:02 INFO  SelectQuery:51 - Added selected records to data structure
+2021-04-07 20:44:34 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 20:44:39 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 20:44:46 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 20:45:08 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 20:45:54 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 20:45:58 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 20:46:09 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:12:49 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 21:12:54 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 21:13:07 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:13:24 INFO  ConsoleRunner:133 - Executing Delete Query
+2021-04-07 21:13:24 INFO  DeleteParser:13 - Parsing the Delete query
+2021-04-07 21:13:24 INFO  DeleteQuery:31 - Table employee present in the database src/Database/newDb
+2021-04-07 21:13:24 INFO  DeleteQuery:33 - Fetching table employee metadata
+2021-04-07 21:13:24 INFO  DeleteQuery:35 - query contain WHERE clause
+2021-04-07 21:13:24 INFO  DeleteQuery:36 - Deleting records with 555 value
+2021-04-07 21:13:24 INFO  DeleteQuery:51 - Stored all the records after deleting the selected row
+2021-04-07 21:13:24 INFO  DeleteQuery:71 - Updated the table employee
+2021-04-07 21:14:32 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:25:37 INFO  ConsoleRunner:39 - Logged in successfully
+2021-04-07 21:25:44 INFO  ConsoleRunner:72 - Executing Use Query
+2021-04-07 21:25:54 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:25:54 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@4b6995df
+2021-04-07 21:25:54 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 21:25:54 INFO  SelectQuery:32 - query doesn't contain WHERE clause
+2021-04-07 21:25:54 INFO  SelectQuery:33 - Fetching all table employee records
+2021-04-07 21:25:54 INFO  SelectQuery:35 - Returned all the table employee records
+2021-04-07 21:26:08 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:26:08 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@721e0f4f
+2021-04-07 21:26:08 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 21:26:26 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:26:26 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@28864e92
+2021-04-07 21:26:26 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 21:26:26 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
+2021-04-07 21:26:26 INFO  SelectQuery:51 - Added selected records to data structure
+2021-04-07 21:26:53 INFO  ConsoleRunner:119 - Executing Select Query
+2021-04-07 21:26:53 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@649d209a
+2021-04-07 21:26:53 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 21:26:53 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
+2021-04-07 21:26:53 INFO  SelectQuery:51 - Added selected records to data structure
