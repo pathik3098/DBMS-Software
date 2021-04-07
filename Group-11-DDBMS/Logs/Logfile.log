@@ -107,3 +107,18 @@
 2021-04-07 22:42:16 INFO  SelectQuery:32 - query doesn't contain WHERE clause
 2021-04-07 22:42:16 INFO  SelectQuery:33 - Fetching all table employee records
 2021-04-07 22:42:16 INFO  SelectQuery:35 - Returned all the table employee records
+2021-04-07 23:09:00 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:10:12 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:10:23 INFO  ConsoleRunner:73 - Executing Use Query
+2021-04-07 23:11:59 INFO  ConsoleRunner:84 - Executing Create Query
+2021-04-07 23:16:35 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:16:42 INFO  ConsoleRunner:73 - Executing Use Query
+2021-04-07 23:23:38 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:23:43 INFO  ConsoleRunner:73 - Executing Use Query
+2021-04-07 23:24:18 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:24:50 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:25:33 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:25:46 INFO  ConsoleRunner:73 - Executing Use Query
+2021-04-07 23:27:14 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 23:27:20 INFO  ConsoleRunner:73 - Executing Use Query
+2021-04-07 23:43:38 INFO  ConsoleRunner:113 - Executing Insert Query
