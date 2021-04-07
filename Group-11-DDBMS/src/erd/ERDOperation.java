@@ -61,6 +61,7 @@ public class ERDOperation {
                     .sorted(Comparator.comparingLong(filePath -> filePath.toFile().lastModified()))
                     .map(Path::toFile)
                     .collect(Collectors.toList());
+
             StringBuilder fileContent = new StringBuilder();
             for (File metadataFile : fileList)
             {
