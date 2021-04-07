@@ -23,6 +23,7 @@ public class ConsoleRunner {
 	public final static String QueryExit = "QUIT";
 	Scanner userInput = new Scanner(System.in);
 	private static Logger log = LogManager.getLogger(ConsoleRunner.class);
+
 	public void run() throws IOException {
 
 		String commandEntered;

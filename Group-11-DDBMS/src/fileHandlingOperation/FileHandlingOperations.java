@@ -90,7 +90,7 @@ public class FileHandlingOperations {
     public void writeTableMetaData(List<ColumnData> columns) {
         try {
             String tableMetaData = "";
-            String separator = "|";
+            String separator = "-";
             for (ColumnData column : columns) {
                 tableMetaData += column.getIndex() + separator;
                 tableMetaData += column.getName() + separator;

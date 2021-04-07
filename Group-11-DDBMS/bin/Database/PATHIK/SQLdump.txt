@@ -1,1 +1,2 @@
-CREATE TABLE PERSON(name int PK,id int);
+CREATE TABLE PERSON(name String,Id int);
+CREATE TABLE xyz(col1 int PK,col2 String FK,col3 int,FK col2 REFERENCES PERSON col2);
