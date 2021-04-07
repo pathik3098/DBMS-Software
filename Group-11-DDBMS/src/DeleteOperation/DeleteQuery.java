@@ -14,39 +14,41 @@ import java.util.Map;
 
 import CreateOperation.Use;
 import SelectOperation.Object;
+import consoleDriver.ConsoleRunner;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class DeleteQuery {
 
-    //private String Directory = "src/Database";
     Use db = new Use();
     String database = db.getCurrentDB();
+    private static Logger log = LogManager.getLogger(DeleteQuery.class);
     public boolean executeQuery(String tableName, String conditionColumnName, String conditionColumnValue) throws IOException {
 
         Path filePath = Paths.get(database+"/" +tableName+".txt");
         Charset charset = StandardCharsets.UTF_8;
         if (checkTableName(database,tableName)) {
+            log.info("Table "+tableName+" present in the database "+database);
             Map<String, Object> metaData = fetchMetaData(database,tableName);
+            log.info("Fetching table "+tableName+" metadata");
             if (conditionColumnName != null) {
+                log.info("query contain WHERE clause");
+                log.info("Deleting records with "+conditionColumnValue+" value");
                 try {
                     List<String[]> recordsAfterDelete = new ArrayList<>();
                     int ColumnPosition = metaData.get(conditionColumnName).getIndex();
-                    System.out.println(ColumnPosition);
                     List<String> records = Files.readAllLines(filePath,charset);
-                    System.out.println(records);
                     for (int i = 0; i<records.size();i++)
                     {
                         String[] eachRow = records.get(i).split("-");
                         if (eachRow[ColumnPosition].equalsIgnoreCase(conditionColumnValue)) {
-
-                            System.out.println(i);
                             System.out.println(records.get(i));
-                            //records.remove(i);
-                            //System.out.println(records.remove(i));
                         }
                         else {
                             recordsAfterDelete.add(eachRow);
                         }
                     }
+                    log.info("Stored all the records after deleting the selected row");
                     Files.deleteIfExists(filePath);
                     Files.createFile(filePath);
                     for (String[] record : recordsAfterDelete) {
@@ -66,19 +68,22 @@ public class DeleteQuery {
                             e.printStackTrace();
                         }
                     }
+                    log.info("Updated the table "+tableName);
                 }
                 catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             else {
+                log.info("Query doesn't contain WHERE clause");
+                log.info("Deleting all the records from the table "+tableName);
                 Files.deleteIfExists(filePath);
                 Files.createFile(filePath);
-                //System.out.println("Invalid command");
                 return false;
             }
         }
         else {
+            log.warn("Table "+tableName+" doesn't exist in database "+database);
             System.out.println("Table doesn't exist");
             return false;
         }
@@ -90,7 +95,6 @@ public class DeleteQuery {
     }
 
     public Map<String, Object> fetchMetaData(String database, String tableName){
-        //File file = new File(tableName + "meta.txt");
         Path filePath = Paths.get(database+"/" +tableName+"meta.txt");
         Charset charset = StandardCharsets.UTF_8;
         Map<String, Object> metaData = new HashMap<>();
