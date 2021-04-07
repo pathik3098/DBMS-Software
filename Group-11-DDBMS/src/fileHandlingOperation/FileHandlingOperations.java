@@ -7,12 +7,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import insertOperation.ColumnData;
 
 public class FileHandlingOperations {
 
-    final private String DATABASE_DIRECTORY = "E:\\DAL WINTER SEM 1\\Data Management\\csci-5408-w2021-group-11\\Group-11-DDBMS\\src\\";
+    //final private String DATABASE_DIRECTORY = "E:\\DAL WINTER SEM 1\\Data Management\\csci-5408-w2021-group-11\\Group-11-DDBMS\\src\\";
     private String dbName = "";
     private String fileName = "";
 
@@ -24,7 +23,7 @@ public class FileHandlingOperations {
 
     public boolean isFilePresent()
     {
-        return Files.exists(Paths.get(DATABASE_DIRECTORY + dbName + "\\" + fileName));
+        return Files.exists(Paths.get(dbName + "/" + fileName));
     }
 
 
@@ -47,7 +46,7 @@ public class FileHandlingOperations {
                 }
                 System.out.println(tableData);
             }
-            Files.writeString(Paths.get(DATABASE_DIRECTORY + dbName + "\\" + fileName), tableData,
+            Files.writeString(Paths.get(dbName + "/" + fileName), tableData,
                     StandardOpenOption.APPEND);
         }
         catch (IOException e1)
@@ -60,7 +59,7 @@ public class FileHandlingOperations {
         Map<Integer, ColumnData> column = new HashMap<>();
         try
         {
-            List<String> lines = Files.readAllLines(Paths.get(DATABASE_DIRECTORY + dbName + "\\" + fileName));
+            List<String> lines = Files.readAllLines(Paths.get(dbName + "/" + fileName));
             ColumnData columnData;
 
             String columnName;
@@ -70,7 +69,7 @@ public class FileHandlingOperations {
             for (String colLine : lines)
             {
             	//System.out.println(colLine);
-                String[] columnDataArray = colLine.split("\\-");
+                String[] columnDataArray = colLine.split("-");
                 columnIndex = Integer.parseInt(columnDataArray[0]);
                 columnName = columnDataArray[1];
                 columnType = columnDataArray[2];

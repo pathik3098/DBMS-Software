@@ -17,12 +17,12 @@ import SelectOperation.Object;
 
 public class DeleteQuery {
 
-    private String Directory = "src/Database";
+    //private String Directory = "src/Database";
     Use db = new Use();
     String database = db.getCurrentDB();
     public boolean executeQuery(String tableName, String conditionColumnName, String conditionColumnValue) throws IOException {
 
-        Path filePath = Paths.get(Directory + "/" +database+"/" +tableName+".txt");
+        Path filePath = Paths.get(database+"/" +tableName+".txt");
         Charset charset = StandardCharsets.UTF_8;
         if (checkTableName(database,tableName)) {
             Map<String, Object> metaData = fetchMetaData(database,tableName);
@@ -30,12 +30,13 @@ public class DeleteQuery {
                 try {
                     List<String[]> recordsAfterDelete = new ArrayList<>();
                     int ColumnPosition = metaData.get(conditionColumnName).getIndex();
+                    System.out.println(ColumnPosition);
                     List<String> records = Files.readAllLines(filePath,charset);
                     System.out.println(records);
                     for (int i = 0; i<records.size();i++)
                     {
                         String[] eachRow = records.get(i).split("-");
-                        if (eachRow[ColumnPosition].equalsIgnoreCase(conditionColumnValue)) {
+                        if (eachRow[ColumnPosition-1].equalsIgnoreCase(conditionColumnValue)) {
 
                             System.out.println(i);
                             System.out.println(records.get(i));
@@ -73,7 +74,7 @@ public class DeleteQuery {
             else {
                 Files.deleteIfExists(filePath);
                 Files.createFile(filePath);
-                System.out.println("Invalid command");
+                //System.out.println("Invalid command");
                 return false;
             }
         }
@@ -85,12 +86,12 @@ public class DeleteQuery {
     }
 
     public boolean checkTableName(String database, String tableName) {
-        return Files.exists(Paths.get(Directory + "/" +database+"/" +tableName+".txt"));
+        return Files.exists(Paths.get(database+"/" +tableName+".txt"));
     }
 
     public Map<String, Object> fetchMetaData(String database, String tableName){
         //File file = new File(tableName + "meta.txt");
-        Path filePath = Paths.get(Directory + "/" +database+"/" +tableName+"meta.txt");
+        Path filePath = Paths.get(database+"/" +tableName+"meta.txt");
         Charset charset = StandardCharsets.UTF_8;
         Map<String, Object> metaData = new HashMap<>();
         try {

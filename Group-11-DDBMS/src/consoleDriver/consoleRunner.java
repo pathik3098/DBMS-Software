@@ -120,11 +120,9 @@ public class consoleRunner {
 							}
 							//System.out.println("No records returned");
 						}
-//						else {
-//							for (String record : rowsFetched) {
-//								System.out.println(record);
-//							}
-//						}
+						else {
+							System.out.println("No records available");
+						}
 						break;
 					case "delete":
 						DeleteParser delete = new DeleteParser();

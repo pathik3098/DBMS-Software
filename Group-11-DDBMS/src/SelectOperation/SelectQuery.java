@@ -14,7 +14,7 @@ import java.util.Map;
 public class SelectQuery {
 
     String query;
-    private String Directory = "src/Database";
+    //private String Directory = "src/Database";
     Use database = new Use();
     String databaseName = database.getCurrentDB();
 
@@ -28,7 +28,7 @@ public class SelectQuery {
             String[] columns = requiredColumns;
             //boolean isColumnsAvailable = columnsAvailable(columns, metaData);
             if (columns.length == 0) {
-                allRecords = Files.readAllLines(Paths.get(Directory + "/" + databaseName + "/" + tableName + ".txt"));
+                allRecords = Files.readAllLines(Paths.get(databaseName + "/" + tableName + ".txt"));
                 for (String record : allRecords) {
                     System.out.println(record);
                 }
@@ -37,7 +37,7 @@ public class SelectQuery {
                 if (conditionColumnName != null) {
                     try {
                         //File file = new File(databaseName,tableName + ".txt");
-                        allRecords = Files.readAllLines(Paths.get(Directory + "/" + databaseName + "/" + tableName+".txt"));
+                        allRecords = Files.readAllLines(Paths.get( databaseName + "/" + tableName+".txt"));
                         for (String record : allRecords) {
                             eachRow = record.split("-");
                             for (int i = 0; i < eachRow.length;i++) {
@@ -92,7 +92,7 @@ public class SelectQuery {
     }
 
     public boolean checkTableName(String databaseName, String tableName) {
-        return Files.exists(Paths.get(Directory+ "/" + databaseName + "/" + tableName+".txt"));
+        return Files.exists(Paths.get(databaseName + "/" + tableName+".txt"));
     }
 
     public Map<String, Object> getTableMetaData(String databaseName, String tableName) {
@@ -100,7 +100,7 @@ public class SelectQuery {
         Map<String, Object> metaData = new HashMap<>();
         try {
             //correct the code here
-            List<String> columnList = Files.readAllLines(Paths.get(Directory+ "/" + databaseName + "/" + tableName+"meta.txt"));
+            List<String> columnList = Files.readAllLines(Paths.get(databaseName + "/" + tableName+"meta.txt"));
             String[] columnData;
             Object obj;
             for (String line : columnList) {
