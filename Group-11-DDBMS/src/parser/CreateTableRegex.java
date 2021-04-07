@@ -5,21 +5,6 @@ import java.util.regex.Pattern;
 
 public class CreateTableRegex {
 
-/*
-    ^create\stable\s(?!_)\\w*\\(((([a-z0-9]+)\s(int|String)\s?([,]*)\s?)+)(?<!,)\\);$
-    String createTable = "CREATE TABLE tablename(column1 int,column2 String,column3 int);";
-    String regex = "^create\\stable\\s\\\\w*\\\\(((([a-z0-9]+)\\s(int|String)\\s?([,]*)\\s?)+)(?<!,)\\\\);$";
-
-    Pattern re = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-    Matcher m = re.matcher(createTable);
-    boolean validity = m.find();
-    System.out.println(validity);
-
-    while (m.find())
-    {
-        System.out.println(m.group(0));
-    }
-*/
     public boolean checkTableRegex(String query)
     {
         String createTableQuery = query;
@@ -29,13 +14,11 @@ public class CreateTableRegex {
 
         if (validity)
         {
-//            System.out.println("valid");
             return true;
         }
         else
         {
-//            System.out.println("INVALID SYNTAX");
-            return true;
+            return false;
         }
     }
 }

@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 public class Use {
     String useQuery;
     public static String currentDB;
+    public static String currentRemoteDB;
 
     public Use(String query)
     {
@@ -21,19 +22,21 @@ public class Use {
     }
     public void execute()
     {
-        String path = "src/Database";
+        String path = "src/LocalSite";
+        String remotePath = "src/RemoteSite";
         String[] statement = useQuery.split(" ");
         path = path + "/" + statement[1];
+        remotePath = remotePath + "/" + statement[1];
         boolean isDatabasePresent = Files.isDirectory(Paths.get(path));
         if(isDatabasePresent)
         {
             currentDB = path;
+            currentRemoteDB = remotePath;
             setCurrentDB(currentDB);
         }
         else
         {
-            System.out.println(statement[1]+" database not present");
+            System.out.println(statement[1]+"database not present");
         }
     }
-
 }

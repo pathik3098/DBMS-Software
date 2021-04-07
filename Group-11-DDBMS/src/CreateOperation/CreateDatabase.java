@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class CreateDatabase {
     String databaseName;
-    String localPath = "src/Database";
+    String localPath = "src/LocalSite";
     String remotePath = "src/RemoteSite";
     String query;
     String[] statement;
@@ -21,17 +21,20 @@ public class CreateDatabase {
         remotePath = remotePath+"/"+databaseName;
         File remoteFile = new File(remotePath);
         File file = new File(localPath);
-        boolean bool = file.mkdir();
-        boolean isDatabaseCreated = remoteFile.mkdir();
+        boolean islocalDatabaseCreated = file.mkdir();
+        boolean isRemoteDatabaseCreated = remoteFile.mkdir();
 
-        if(bool && isDatabaseCreated)
+        if(islocalDatabaseCreated && isRemoteDatabaseCreated)
         {
             System.out.println("Database successfully created");
-            String dumpPath = localPath + "/" + "SQLdump" + ".txt";
-            File dumpFile = new File(dumpPath);
+            String dumpLocalPath = localPath + "/" + "SQLdump" + ".txt";
+            String dumpRemotePath = remotePath + "/" + "SQLdump" + ".txt";
+            File dumpLocalFile = new File(dumpLocalPath);
+            File dumpRemoteFile = new File(dumpRemotePath);
             try
             {
-                boolean result = dumpFile.createNewFile();
+                boolean result1 = dumpLocalFile.createNewFile();
+                boolean result2 = dumpRemoteFile.createNewFile();
             }
             catch (IOException e)
             {

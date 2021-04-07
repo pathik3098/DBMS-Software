@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static CreateOperation.Use.currentDB;
+import static CreateOperation.Use.currentRemoteDB;
 
 public class CreateTable {
     String query;
     ArrayList<String> queryTokens = new ArrayList<String>();
     String path = currentDB;
+    String remotePath = currentRemoteDB;
     String tablemetapath, tablepath;
+    String tableRemotePath, tableRemoteMetaPath;
     String[] getDataInsideBracket;
     boolean result;
 
@@ -26,6 +29,8 @@ public class CreateTable {
         tokenize();
         tablemetapath = path + "\\" + queryTokens.get(2).toLowerCase() + "meta" + ".txt";
         tablepath = path + "\\" + queryTokens.get(2).toLowerCase() + ".txt";
+        tableRemoteMetaPath = remotePath + "\\" + queryTokens.get(2).toLowerCase() + "meta" + ".txt";
+        tableRemotePath = remotePath + "\\" + queryTokens.get(2).toLowerCase() + ".txt"  ;
     }
 
     private void tokenize() {
@@ -46,16 +51,16 @@ public class CreateTable {
     }
 
     public String foreignKeyTableName() {
-        int length = getDataInsideBracket.length;
-        length = length-1;
-        String lastRow = getDataInsideBracket[length];
         String foreignKeyTableName = null;
 
-        if (lastRow.toUpperCase().contains("FK")) {
-            String[] foreignKey = lastRow.split(" ");
-            foreignKeyTableName = foreignKey[3].toLowerCase();
+        for(int i=0; i < getDataInsideBracket.length;i++)
+        {
+            String row = getDataInsideBracket[i];
+            if (row.toUpperCase().contains("FK")) {
+                String[] foreignKey = row.split(" ");
+                foreignKeyTableName = foreignKey[3].toLowerCase();
+            }
         }
-        System.out.println(foreignKeyTableName);
         return foreignKeyTableName;
     }
 
@@ -65,11 +70,30 @@ public class CreateTable {
 
     public void execute() {
 
-        String foreignTableName = foreignKeyTableName();
+        File directory=new File(currentDB);
+        int fileCount = 0;
+        if(directory.list() != null)
+        {
+            fileCount=directory.list().length;
+        }
 
+        if(fileCount<5)
+        {
+            tableCreationCheck();
+        }
+
+        if(fileCount>=5)
+        {
+            createTableOperation(currentRemoteDB,tableRemoteMetaPath,tableRemotePath);
+        }
+    }
+
+    public void tableCreationCheck()
+    {
+        String foreignTableName = foreignKeyTableName();
         if(foreignTableName == null)
         {
-            createTableOperation();
+            createTableOperation(currentDB,tablemetapath,tablepath);
         }
 
         else
@@ -77,18 +101,18 @@ public class CreateTable {
             boolean checkForeignTable = checkIfForeignTableExists(foreignTableName);
             if(checkForeignTable)
             {
-                createTableOperation();
+                createTableOperation(currentDB,tablemetapath,tablepath);
             }
             else
             {
-                System.out.println("Foreign Table doesn't");
+                System.out.println("Foreign Table doesn't exist");
             }
         }
     }
 
-    public void createTableOperation()
+    public void createTableOperation(String currentDBPath, String currentMetaPath, String currentFilePath)
     {
-        File file = new File(tablemetapath);
+        File file = new File(currentMetaPath);
         try {
             result = file.createNewFile();
         } catch (IOException e) {
@@ -97,7 +121,7 @@ public class CreateTable {
 
         try {
             if (result) {
-                FileWriter myWriter = new FileWriter(tablemetapath);
+                FileWriter myWriter = new FileWriter(currentMetaPath);
                 for (int i = 0; i < getDataInsideBracket.length; i++) {
                     Integer a = i;
                     String index = a.toString();
@@ -115,7 +139,7 @@ public class CreateTable {
             e.printStackTrace();
         }
 
-        File createFile = new File(tablepath);
+        File createFile = new File(currentFilePath);
         try {
             result = createFile.createNewFile();
             if (result) {
@@ -128,10 +152,13 @@ public class CreateTable {
         }
 
         String dumpFilePath = currentDB + "/" + "SQLdump.txt";
+        String dumpRemoteFilePath = currentRemoteDB + "/" + "SQLdump.txt";
         Path path = Paths.get(dumpFilePath);
+        Path remotePath = Paths.get(dumpRemoteFilePath);
 
         try {
             Files.writeString(path, query + "\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            Files.writeString(remotePath, query + "\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
         } catch (IOException ex) {
             System.out.println("Error inserting create query in sql dump file");
         }
