@@ -18,15 +18,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static CreateOperation.Use.currentDB;
-
-public class consoleRunner {
+public class ConsoleRunner {
 
 	//public final static String QueryRequest ="query> ";
 	public final static String QueryExit = "QUIT";
 	Scanner userInput = new Scanner(System.in);
 //	private static Logger log = LogManager.getLogM();
-	private static Logger log = LogManager.getLogger(consoleRunner.class);
+	private static Logger log = LogManager.getLogger(ConsoleRunner.class);
 	public void run() throws IOException {
 
 		String commandEntered;
