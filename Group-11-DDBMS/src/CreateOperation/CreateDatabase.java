@@ -1,6 +1,7 @@
 package CreateOperation;
 
 import java.io.File;
+import java.io.IOException;
 
 public class CreateDatabase {
     String databaseName;
@@ -26,7 +27,6 @@ public class CreateDatabase {
         if(bool && isDatabaseCreated)
         {
             System.out.println("Database successfully created");
-<<<<<<< HEAD
             String dumpPath = localPath + "/" + "SQLdump" + ".txt";
             File dumpFile = new File(dumpPath);
             try
@@ -37,8 +37,6 @@ public class CreateDatabase {
             {
                 e.printStackTrace();
             }
-=======
->>>>>>> 12ab8d5079f552ed334a4307372b093b1ffce7de
         }
 
         else{
