@@ -7,6 +7,8 @@ import DeleteOperation.DeleteParser;
 import Login.UserLogin;
 import SelectOperation.SelectParser;
 import insertOperation.InsertOperation;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import parser.CreateDatabaseRegex;
 import parser.CreateTableRegex;
 import parser.UseRegex;
@@ -16,14 +18,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static CreateOperation.Use.currentDB;
-
-public class consoleRunner {
+public class ConsoleRunner {
 
 	//public final static String QueryRequest ="query> ";
 	public final static String QueryExit = "QUIT";
 	Scanner userInput = new Scanner(System.in);
-
+//	private static Logger log = LogManager.getLogM();
+	private static Logger log = LogManager.getLogger(ConsoleRunner.class);
 	public void run() throws IOException {
 
 		String commandEntered;
@@ -37,6 +38,7 @@ public class consoleRunner {
 			if (commandEntered.equalsIgnoreCase("1")) {
 				UserLogin login = new UserLogin();
 				if (login.loginUser()) {
+					log.info("Logged in successfully");
 					initializeSystem();
 				}
 				else {

@@ -1,0 +1,5 @@
+2021-04-07 14:39:15 INFO  Logging:12 - Info here
+2021-04-07 14:39:15 FATAL Logging:14 - Fatal here
+2021-04-07 14:39:15 ERROR Logging:15 - Error here
+2021-04-07 14:39:15 WARN  Logging:17 - Warning here
+2021-04-07 14:41:12 INFO  consoleRunner:43 - Logged in successfully
