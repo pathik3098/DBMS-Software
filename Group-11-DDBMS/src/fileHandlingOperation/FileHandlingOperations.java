@@ -65,6 +65,8 @@ public class FileHandlingOperations {
             String columnName;
             String columnType;
             int columnIndex;
+            String columnConstraint;
+            String columnForeignTableName;
 
             for (String colLine : lines)
             {
@@ -73,7 +75,9 @@ public class FileHandlingOperations {
                 columnIndex = Integer.parseInt(columnDataArray[0]);
                 columnName = columnDataArray[1];
                 columnType = columnDataArray[2];
-                columnData = new ColumnData(columnName, columnType, columnIndex);
+                columnConstraint = columnDataArray[3];
+                columnForeignTableName = columnDataArray[4];
+                columnData = new ColumnData(columnName, columnType, columnIndex, columnConstraint, columnForeignTableName);
                 //System.out.println(columnName + columnIndex + columnType);
                 column.put(columnIndex, columnData);
             }
@@ -81,6 +85,23 @@ public class FileHandlingOperations {
             e.printStackTrace();
         }
         return column;
+    }
 
+    public void writeTableMetaData(List<ColumnData> columns) {
+        try {
+            String tableMetaData = "";
+            String separator = "-";
+            for (ColumnData column : columns) {
+                tableMetaData += column.getIndex() + separator;
+                tableMetaData += column.getName() + separator;
+                tableMetaData += column.getType() + separator;
+                tableMetaData += column.getConstraint() + separator;
+                tableMetaData += column.getForeignKeyTableName() + separator;
+                tableMetaData += "\n";
+            }
+            Files.writeString(Paths.get(dbName + "\\" + fileName), tableMetaData);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 }

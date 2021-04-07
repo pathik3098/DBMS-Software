@@ -83,6 +83,10 @@ public class InsertOperation
 				System.out.println("Table Not present");
 			}
 		}
+		else
+		{
+			System.out.printf("Syntax Error");
+		}
 	}
 
 	public Map<Integer, ColumnData> getTableColumns(String dbName, String tableName) {
