@@ -20,10 +20,8 @@ import java.util.Scanner;
 
 public class ConsoleRunner {
 
-	//public final static String QueryRequest ="query> ";
 	public final static String QueryExit = "QUIT";
 	Scanner userInput = new Scanner(System.in);
-//	private static Logger log = LogManager.getLogM();
 	private static Logger log = LogManager.getLogger(ConsoleRunner.class);
 	public void run() throws IOException {
 
@@ -42,6 +40,7 @@ public class ConsoleRunner {
 					initializeSystem();
 				}
 				else {
+					log.error("login Failed");
 					System.out.println("Invalid Credentials");
 					return;
 				}
@@ -49,6 +48,7 @@ public class ConsoleRunner {
 				System.out.println("Exiting the application.");
 				return;
 			} else {
+				log.warn("Bad Input");
 				System.out.println("Bad Command, Please enter a valid input - 1 or quit");
 			}
 		} while (!commandEntered.equalsIgnoreCase(QueryExit));
@@ -69,6 +69,7 @@ public class ConsoleRunner {
 				String queryOperation = splitQuery[0];
 				switch (queryOperation.toLowerCase().trim()) {
 					case "use":
+						log.info("Executing Use Query");
 						UseRegex useRe = new UseRegex();
 						boolean valid = useRe.checkUseQuery(query);
 						if (valid) {
@@ -79,6 +80,7 @@ public class ConsoleRunner {
 						}
 						break;
 					case "create":
+						log.info("Executing Create Query");
 						if(splitQuery[1].toLowerCase().trim().equals("database"))
 						{
 							CreateDatabaseRegex DBregex = new CreateDatabaseRegex();
@@ -107,31 +109,36 @@ public class ConsoleRunner {
 						}
 						break;
 					case "insert":
-						//call to insert
+						log.info("Executing Insert Query");
 						InsertOperation insert = new InsertOperation();
 						Use db = new Use();
 						String databaseName = db.getCurrentDB();
 						insert.insertQueryParser(query, databaseName);
 						break;
 					case "select":
+						log.info("Executing Select Query");
 						SelectParser select = new SelectParser(query);
 						List<String> rowsFetched = select.parseQuery(query);
 						if (rowsFetched.size() != 0) {
-							System.out.println("inside if");
 							for (String record : rowsFetched) {
 								System.out.println(record);
 							}
 						}
 						else {
-							System.out.println("inside else");
 							System.out.println("No records available");
 						}
 
 						break;
 					case "delete":
+						log.info("Executing Delete Query");
 						DeleteParser delete = new DeleteParser();
-						delete.parseQuery(query);
-						System.out.println("Selected rows deleted");
+						if(delete.parseQuery(query)) {
+							System.out.println("Selected rows deleted");
+						}
+						else {
+							log.error("Invalid Query Syntax");
+							System.out.println("Invalid Query Syntax");
+						}
 						break;
 					default:
 						return;
