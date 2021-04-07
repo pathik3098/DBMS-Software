@@ -99,3 +99,11 @@
 2021-04-07 21:26:53 INFO  SelectQuery:29 - Fetching table employee metadata
 2021-04-07 21:26:53 INFO  SelectQuery:40 - Query has a WHERE clause-- fetching records from conditional clause
 2021-04-07 21:26:53 INFO  SelectQuery:51 - Added selected records to data structure
+2021-04-07 22:41:58 INFO  ConsoleRunner:40 - Logged in successfully
+2021-04-07 22:42:07 INFO  ConsoleRunner:73 - Executing Use Query
+2021-04-07 22:42:16 INFO  ConsoleRunner:120 - Executing Select Query
+2021-04-07 22:42:16 INFO  SelectQuery:26 - Table employee present in the database CreateOperation.Use@4b6995df
+2021-04-07 22:42:16 INFO  SelectQuery:29 - Fetching table employee metadata
+2021-04-07 22:42:16 INFO  SelectQuery:32 - query doesn't contain WHERE clause
+2021-04-07 22:42:16 INFO  SelectQuery:33 - Fetching all table employee records
+2021-04-07 22:42:16 INFO  SelectQuery:35 - Returned all the table employee records
