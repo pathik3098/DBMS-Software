@@ -1,0 +1,4 @@
+0-col1-int-PK
+1-col2-String-FK
+2-col3-int
+3-FK-col2-REFERENCES-PERSON-col2

@@ -1,21 +1,21 @@
 package parser;
 
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InsertRegex {
-
-	public static void main(String []args){
-		String insert = "INSERT INTO table_name (a, b, c) VALUES (abc,def,ghi) , (jkl,mno,pqr)";
-
-		String regex = "((?<=(INSERT\\sINTO\\s))[\\w\\d_]+(?=\\s+))|((?<=\\()([\\w\\d_,]+)+(?=\\)))";
-
-		Pattern re = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-
-		Matcher m = re.matcher(insert);
-		
-		while (m.find()) {
-			System.out.println(m.group(0));
+	
+	private static final String INSERT_QUERY_REGEX = "^INSERT INTO [A-Z_]* VALUES \\(.*\\)$";
+	
+	public boolean queryChecker(String query)
+	{
+		Pattern pattern = Pattern.compile(INSERT_QUERY_REGEX);
+		Matcher matcher = pattern.matcher(query.toUpperCase());
+		if (matcher.find()) 
+		{
+			return !matcher.group(0).isBlank();
 		}
-		
+		return false;
 	}
+
 }
