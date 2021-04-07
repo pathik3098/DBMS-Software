@@ -1,0 +1,1 @@
+CREATE TABLE PERSON(name int PK,id int);
