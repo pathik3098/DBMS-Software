@@ -63,20 +63,20 @@ public class SelectQuery {
                 }
                 else {
                     String[] recordRow;
-                    StringBuilder newRecord = new StringBuilder();
+                    String newRecord = "";
                     for (String record : requiredRecords) {
                         recordRow = record.split("-");
                         for (int i = 0; i < columns.length; i++) {
                             Object obj = metaData.get(columns[i].trim());
                             if (i != columns.length-1) {
-                                newRecord.append(recordRow[obj.getIndex()]).append("-");
+                                newRecord += recordRow[obj.getIndex()] + "-";
                             }
                             else {
-                                newRecord.append(recordRow[obj.getIndex()]);
+                                newRecord += recordRow[obj.getIndex()];
                             }
                         }
-                        requiredColumnRecords.add(newRecord.toString());
-                        newRecord = new StringBuilder();
+                        requiredColumnRecords.add(newRecord);
+                        newRecord = "";
                     }
                     return requiredColumnRecords;
                 }

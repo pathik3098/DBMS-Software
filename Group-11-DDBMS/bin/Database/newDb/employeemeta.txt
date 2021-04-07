@@ -1,0 +1,3 @@
+0-empid-int
+1-empName-String
+2-salary-int
