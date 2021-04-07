@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import parser.CreateDatabaseRegex;
 import parser.CreateTableRegex;
 import parser.UseRegex;
+import truncate.Truncate;
 
 import java.io.IOException;
 import java.util.List;
@@ -140,6 +141,13 @@ public class ConsoleRunner {
 							log.error("Invalid Query Syntax");
 							System.out.println("Invalid Query Syntax");
 						}
+						break;
+					case "truncate":
+						log.info("Executing Truncate Query");
+						Truncate truncate = new Truncate();
+						Use dataBase = new Use();
+						String dataBaseName = dataBase.getCurrentDB();
+						truncate.executeTruncateQuery(query, dataBaseName);
 						break;
 					default:
 						return;
