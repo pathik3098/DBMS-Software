@@ -65,6 +65,8 @@ public class FileHandlingOperations {
             String columnName;
             String columnType;
             int columnIndex;
+            String columnConstraint;
+            String columnForeignTableName;
 
             for (String colLine : lines)
             {
@@ -73,7 +75,9 @@ public class FileHandlingOperations {
                 columnIndex = Integer.parseInt(columnDataArray[0]);
                 columnName = columnDataArray[1];
                 columnType = columnDataArray[2];
-                columnData = new ColumnData(columnName, columnType, columnIndex);
+                columnConstraint = columnDataArray[3];
+                columnForeignTableName = columnDataArray[4];
+                columnData = new ColumnData(columnName, columnType, columnIndex, columnConstraint, columnForeignTableName);
                 //System.out.println(columnName + columnIndex + columnType);
                 column.put(columnIndex, columnData);
             }

@@ -1,8 +1,5 @@
 package SelectOperation;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
