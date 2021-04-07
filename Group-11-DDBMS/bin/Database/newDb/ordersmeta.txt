@@ -1,0 +1,4 @@
+0-order_id-int
+1-order_amount-int
+2-product_name-String
+3-order_status-String

@@ -1,7 +1,8 @@
 package SelectOperation;
 
-import CreateOperation.CreateDatabase;
 import CreateOperation.Use;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,31 +14,31 @@ import java.util.Map;
 
 public class SelectQuery {
 
-    String query;
-    //private String Directory = "src/Database";
     Use database = new Use();
     String databaseName = database.getCurrentDB();
+    private static Logger log = LogManager.getLogger(SelectQuery.class);
 
     public List<String> executeQuery(String tableName, String[] requiredColumns, String conditionColumnName, String conditionColumnValue) throws IOException {
         List<String> allRecords = new ArrayList<>();
         List<String> requiredRecords = new ArrayList<>();
         List<String> requiredColumnRecords = new ArrayList<>();
         if (checkTableName(databaseName,tableName)) {
+            log.info("Table "+tableName+" present in the database "+database);
             String[] eachRow;
             Map<String, Object> metaData = getTableMetaData(databaseName,tableName);
+            log.info("Fetching table "+tableName+" metadata");
             String[] columns = requiredColumns;
-            //boolean isColumnsAvailable = columnsAvailable(columns, metaData);
             if (columns.length == 0) {
+                log.info("query doesn't contain WHERE clause");
+                log.info("Fetching all table "+tableName+" records");
                 allRecords = Files.readAllLines(Paths.get(databaseName + "/" + tableName + ".txt"));
-//                for (String record : allRecords) {
-//                    System.out.println(record);
-//                }
+                log.info("Returned all the table "+tableName+" records");
                 return allRecords;
             }
             else {
                 if (conditionColumnName != null) {
+                    log.info("Query has a WHERE clause-- fetching records from conditional clause");
                     try {
-                        //File file = new File(databaseName,tableName + ".txt");
                         allRecords = Files.readAllLines(Paths.get( databaseName + "/" + tableName+".txt"));
                         for (String record : allRecords) {
                             eachRow = record.split("-");
@@ -47,8 +48,10 @@ public class SelectQuery {
                                 }
                             }
                         }
+                        log.info("Added selected records to data structure");
                     }
                     catch (IOException e) {
+                        log.warn("EXCEPTION OCCURRED IN FILE HANDLING");
                         e.printStackTrace();
                     }
                 }
@@ -60,33 +63,27 @@ public class SelectQuery {
                 }
                 else {
                     String[] recordRow;
-                    String newRecord = "";
+                    StringBuilder newRecord = new StringBuilder();
                     for (String record : requiredRecords) {
                         recordRow = record.split("-");
                         for (int i = 0; i < columns.length; i++) {
                             Object obj = metaData.get(columns[i].trim());
                             if (i != columns.length-1) {
-                                newRecord += recordRow[obj.getIndex()] + "-";
+                                newRecord.append(recordRow[obj.getIndex()]).append("-");
                             }
                             else {
-                                newRecord += recordRow[obj.getIndex()];
+                                newRecord.append(recordRow[obj.getIndex()]);
                             }
                         }
-                        requiredColumnRecords.add(newRecord);
-                        newRecord = "";
+                        requiredColumnRecords.add(newRecord.toString());
+                        newRecord = new StringBuilder();
                     }
                     return requiredColumnRecords;
                 }
             }
-//            else {
-//                allRecords = Files.readAllLines(Paths.get(Directory + "/" + databaseName + "/" + tableName+".txt"));
-//                for (String record : allRecords) {
-//                    System.out.println(record);
-//                }
-//                //System.out.println("Invalid selection");
-//            }
         }
         else {
+            log.warn("Table "+tableName+" doesn't exist in "+databaseName);
             System.out.println("Table doesn't exist");
         }
         return requiredRecords;
@@ -97,10 +94,8 @@ public class SelectQuery {
     }
 
     public Map<String, Object> getTableMetaData(String databaseName, String tableName) {
-        //File file = new File(tableName.toLowerCase() + "meta.txt");
         Map<String, Object> metaData = new HashMap<>();
         try {
-            //correct the code here
             List<String> columnList = Files.readAllLines(Paths.get(databaseName + "/" + tableName+"meta.txt"));
             String[] columnData;
             Object obj;
@@ -118,15 +113,5 @@ public class SelectQuery {
         }
         return metaData;
 
-    }
-
-    public boolean columnsAvailable(String[] columns, Map<String,Object> tableMetaData) {
-        boolean present = true;
-        for (int i = 0; i < columns.length; i++) {
-            if (!tableMetaData.containsKey(columns[i].trim())) {
-                present = false;
-            }
-        }
-        return present;
     }
 }
