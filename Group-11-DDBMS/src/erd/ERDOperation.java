@@ -67,17 +67,17 @@ public class ERDOperation {
             {
                 FileHandlingOperations fileOperation = new FileHandlingOperations(databaseName, metadataFile.getName());
                 Map<Integer, ColumnData> tableMetaData = fileOperation.readMetaData();
-                StringBuilder columnReferenceBuilder = new StringBuilder();
-                for (ColumnData column : tableMetaData.values())
+                StringBuilder stringBuilder = new StringBuilder();
+                for (ColumnData data : tableMetaData.values())
                 {
-                    if (column.getConstraint().equalsIgnoreCase("FK")) {
+                    if (data.getConstraint().equalsIgnoreCase("FK")) {
                         String tableName = metadataFile.getName().split("-")[0];
-                        columnReferenceBuilder.append(tableName).append(" ---- references ----> ").append(column.getForeignKeyTableName().toLowerCase());
+                        stringBuilder.append(tableName).append(" ---- references ----> ").append(data.getForeignKeyTableName().toLowerCase());
                     }
                 }
-                if (columnReferenceBuilder.toString().length() > 0)
+                if (stringBuilder.toString().length() > 0)
                 {
-                    fileContent.append(columnReferenceBuilder.toString()).append("\n");
+                    fileContent.append(stringBuilder.toString()).append("\n");
                 }
             }
             this.saveToFile(fileContent.toString(), databaseName);
