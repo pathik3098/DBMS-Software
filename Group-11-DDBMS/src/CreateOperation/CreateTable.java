@@ -77,12 +77,12 @@ public class CreateTable {
             fileCount=directory.list().length;
         }
 
-        if(fileCount<5)
+        if(fileCount<9)
         {
             tableCreationCheck();
         }
 
-        if(fileCount>=5)
+        if(fileCount>=9)
         {
             createTableOperation(currentRemoteDB,tableRemoteMetaPath,tableRemotePath);
         }

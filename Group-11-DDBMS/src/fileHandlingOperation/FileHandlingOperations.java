@@ -77,7 +77,7 @@ public class FileHandlingOperations {
                 columnType = columnDataArray[2];
                 columnConstraint = columnDataArray[3];
                 columnForeignTableName = columnDataArray[4];
-                columnData = new ColumnData(columnName, columnType, columnIndex, columnConstraint, columnForeignTableName);
+                columnData = new ColumnData(columnName, columnType, columnIndex , columnConstraint, columnForeignTableName);
                 //System.out.println(columnName + columnIndex + columnType);
                 column.put(columnIndex, columnData);
             }
