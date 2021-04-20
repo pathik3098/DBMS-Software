@@ -1,0 +1,5 @@
+person-local
+orders-remote
+employee-local
+student-remote
+customer-remote
