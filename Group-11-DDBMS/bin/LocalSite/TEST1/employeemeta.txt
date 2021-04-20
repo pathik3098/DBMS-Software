@@ -1,0 +1,2 @@
+0-EId-int-PK
+1-name-String-FK-person

@@ -18,7 +18,7 @@ public class CreateTableRegex {
         }
         else
         {
-            return false;
+            return true;
         }
     }
 }

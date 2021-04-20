@@ -1,0 +1,2 @@
+CREATE TABLE PERSON(PId int PK,name String);
+CREATE TABLE EMPLOYEE(EId int PK,name String FK person);
